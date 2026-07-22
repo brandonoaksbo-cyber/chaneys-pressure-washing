@@ -1,0 +1,15 @@
+# ============================ REMOVE AT LAUNCH ============================
+# Keeps the preview deployment out of search results while the gallery still
+# shows "photo needed" placeholders and the quote form has no destination.
+# At launch: delete the Disallow line below, and delete the noindex meta tag
+# in index.html and privacy.html.
+User-agent: *
+Disallow: /
+# =========================================================================
+
+# --- The real settings, for launch day: delete the block above and use this ---
+# User-agent: *
+# Allow: /
+
+# [REPLACE] Swap in the real domain
+Sitemap: https://REPLACE-WITH-DOMAIN.com/sitemap.xml

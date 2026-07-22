@@ -1,0 +1,228 @@
+# Chaney's Pressure Washing & Soft Wash — website
+
+A single-page website. Plain HTML, CSS and JavaScript — no build step, no framework,
+no dependencies to keep updated. Upload the folder to any host and it works.
+
+```
+index.html            the whole page
+privacy.html          privacy policy
+assets/css/styles.css all styling (brand colours defined at the top)
+assets/js/main.js     menu, form validation, form submission
+assets/fonts/         Barlow Condensed + Inter, self-hosted (63 KB total)
+assets/img/           logos, icons, social share image
+assets/img/gallery/   before & after photos
+robots.txt            search engine instructions
+sitemap.xml           list of pages for search engines
+```
+
+---
+
+## Before you go live — checklist
+
+Search the project for `REPLACE` to find every one of these.
+
+| # | What | Where |
+|---|------|-------|
+| 1 | **Connect the quote form** | `index.html` → `<form ... action="…">` — see below |
+| 2 | **Real domain** (5 places) | `index.html` head + structured data, `sitemap.xml`, `robots.txt` |
+| 3 | **Google Reviews link** | `index.html` → "Read Our Google Reviews" button |
+| 4 | **Facebook + Instagram links** | `index.html` → footer |
+| 5 | **Before & after photos** | `assets/img/gallery/` — see below |
+| 6 | **Real reviews** | `index.html` → Reviews section |
+| 7 | **Contact email** (optional) | `privacy.html` |
+| 8 | **Turn on search engines** | see "Going live" below — the site is hidden from Google right now |
+
+Until #1 is done, the form tells visitors to call instead of silently failing.
+
+### Going live: unblock search engines
+
+The site is currently set to **noindex** on purpose, so Google doesn't index the
+"photo needed" placeholders and the unconnected form against Chaney's name — that is
+slow and painful to undo once it happens. When the checklist above is finished:
+
+1. `index.html` — delete the `<meta name="robots" content="noindex, nofollow">` line
+   (and the comment block above it)
+2. `privacy.html` — change its robots tag to `index, follow`
+3. `robots.txt` — delete the `Disallow: /` block and uncomment the `Allow: /` block
+
+Then submit the sitemap in [Google Search Console](https://search.google.com/search-console).
+
+---
+
+## Connect the quote form
+
+The form posts to whatever URL is in this one line of `index.html`:
+
+```html
+<form class="quote-form" id="quoteForm" method="POST"
+      action="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+```
+
+Any service that accepts a normal form POST will work. The quickest option:
+
+1. Create a free account at [formspree.io](https://formspree.io).
+2. Make a new form and point it at the email address that should receive quote requests.
+3. Copy the form's endpoint URL and paste it over the `action` value above.
+
+Nothing else needs to change. Photo uploads, the success message, validation and
+spam filtering all keep working.
+
+**Switching provider later** (Netlify Forms, Basin, Getform, your own server) is the
+same single edit. Field names sent with each submission:
+
+`name`, `phone`, `email`, `address`, `property_type`, `service`, `message`, `photos`, `contact_method`
+
+**Spam protection** is already built in, no CAPTCHA required:
+- a hidden honeypot field (`_gotcha`) that only bots fill in
+- a timing check that ignores anything submitted within 3 seconds of the page loading
+
+---
+
+## Add or replace before & after photos
+
+Each tile shows two files from `assets/img/gallery/`:
+
+```
+project-1-before.jpg   project-1-after.jpg     Residential — house soft washing
+project-2-before.jpg   project-2-after.jpg     Residential — driveway & sidewalk
+project-3-before.jpg   project-3-after.jpg     Commercial — storefront exterior
+project-4-before.jpg   project-4-after.jpg     Commercial — concrete & pavement
+```
+
+**To swap a photo:** save your picture over the matching file, keeping the exact same
+filename. That's it — no code to edit.
+
+Tips: shoot before and after from the same spot, use a 4:3 landscape shape, and save
+around 1200 x 900 pixels so pages stay fast.
+
+**To change a caption**, edit its `<figcaption>` in `index.html`.
+
+**To add a fifth project**, copy a whole `<figure class="ba-card">…</figure>` block in
+`index.html`, change the four filenames to `project-5-…`, and drop the new photos in.
+
+> The eight files currently there are grey "PHOTO NEEDED" placeholders, and the page
+> says so in print underneath the gallery. Delete that note once real photos are in:
+> search `index.html` for `Placeholder images`.
+
+---
+
+## Add real reviews
+
+In the Reviews section of `index.html`, replace each placeholder card:
+
+```html
+<li class="review is-placeholder">
+  <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+  <p class="review-text">Review placeholder — a real customer review will appear here.</p>
+  <p class="review-meta">Awaiting verified review</p>
+</li>
+```
+
+with the customer's own words:
+
+```html
+<li class="review">
+  <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+  <p class="review-text">"Their exact words, copied from the review."</p>
+  <p class="review-meta">Sarah M. · Tallahassee</p>
+</li>
+```
+
+Remove `is-placeholder` so the dashed border becomes solid. Once every card is real,
+delete the "Placeholder reviews" note below them.
+
+Only publish reviews the customer actually left. Don't add star ratings to the page
+unless they come from a real, published rating.
+
+---
+
+## Change the phone number
+
+The number appears in several places. Search `index.html` for both forms and replace
+each one:
+
+- display text — `850-566-WASH` and `850-566-WASH (9274)`
+- links — `tel:+18505669274`
+- structured data — `"telephone": "+1-850-566-9274"`
+
+Also check `privacy.html`. The phone number is part of the logo image too, so a new
+number means new logo artwork from your designer.
+
+---
+
+## Add a hero photo
+
+The hero currently shows the brand emblem, because no project photography was supplied.
+To use a real photo (a strong before/after property shot, or the crew on a job):
+
+1. Save it as `assets/img/hero.jpg` — landscape, around 1600 x 1200.
+2. In `index.html`, replace the `<img class="hero-emblem" …>` tag with:
+
+```html
+<img class="hero-emblem" src="assets/img/hero.jpg"
+     alt="Chaney's crew soft washing a Tallahassee home"
+     width="1600" height="1200" fetchpriority="high">
+```
+
+3. In `assets/css/styles.css`, find `.hero-emblem` and swap the drop-shadow line for
+   `border-radius: 14px; box-shadow: 0 22px 50px rgba(0,0,0,.7);`
+
+Write an `alt` description of what is actually in the photo.
+
+---
+
+## Brand colours and fonts
+
+All defined once at the top of `assets/css/styles.css`:
+
+```css
+--electric: #087BFF;   --deep:   #0047B8;   --jet:    #080A0D;
+--white:    #FFFFFF;   --chrome: #C9D2DC;   --ice:    #DCEEFF;
+```
+
+Headlines use Barlow Condensed ExtraBold, body copy uses Inter — both served from
+`assets/fonts/`, so the site loads no third-party resources and sets no cookies.
+
+Deep Blue is used for button fills rather than Electric Blue: white text on Electric
+Blue is too low-contrast to meet accessibility standards at button size. Electric Blue
+carries the accents, borders, icons and headline highlights instead.
+
+---
+
+## Hosting
+
+Any static host works. Drag the folder onto [Netlify Drop](https://app.netlify.com/drop),
+or use Vercel, Cloudflare Pages, GitHub Pages, or ordinary cPanel hosting. There is
+nothing to build and no server to run.
+
+To preview locally, run this from inside the project folder and open http://localhost:8000:
+
+```bash
+python3 -m http.server 8000
+```
+
+---
+
+## Notes on what is deliberately *not* on this site
+
+These were left out because the information hasn't been confirmed. Adding anything
+invented here would risk both customer trust and Google penalties.
+
+- **No street address** — only "Tallahassee, FL and surrounding areas". Add a real
+  address to the `PostalAddress` block in `index.html`'s structured data once confirmed.
+- **No opening hours** — add an `openingHoursSpecification` block when known.
+- **No star rating** — Google generates rating stars from your Business Profile, not
+  from the page. Never hand-write an `aggregateRating`; it violates Google's guidelines.
+- **No guarantees, certifications or awards** beyond "Licensed & Insured", which was
+  supplied.
+- **No specific years of individual staff experience** or job counts.
+
+## One thing to check with your designer
+
+The circular "SINCE 2001" longevity badge in the supplied brand pack spells the word
+**"SURROONDING"** instead of "surrounding". Because of that, the badge is not used
+anywhere on the site — the "Since 2001" message is set in Barlow Condensed instead.
+The file is saved at `assets/img/badge-since-2001.png` if you want it once corrected.
+
+The logo artwork itself was used exactly as supplied — cropped out of the brand sheets
+and given a transparent background, with no redrawing or recolouring.
