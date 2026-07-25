@@ -24,7 +24,7 @@ Search the project for `REPLACE` to find every one of these.
 
 | # | What | Where |
 |---|------|-------|
-| 1 | **Connect the quote form** | `index.html` → `<form ... action="…">` — see below |
+| 1 | ~~Connect the quote form~~ — **done**, posting to Formspree | `index.html` → `<form ... action="…">` — see below |
 | 2 | **Real domain** (5 places) | `index.html` head + structured data, `sitemap.xml`, `robots.txt` |
 | 3 | **Google Reviews link** | `index.html` → "Read Our Google Reviews" button |
 | 4 | **Facebook + Instagram links** | `index.html` → footer |
@@ -33,7 +33,8 @@ Search the project for `REPLACE` to find every one of these.
 | 7 | **Contact email** (optional) | `privacy.html` |
 | 8 | **Turn on search engines** | see "Going live" below — the site is hidden from Google right now |
 
-Until #1 is done, the form tells visitors to call instead of silently failing.
+If the form is ever disconnected again, it tells visitors to call rather than
+silently failing.
 
 ### Going live: unblock search engines
 
@@ -50,23 +51,25 @@ Then submit the sitemap in [Google Search Console](https://search.google.com/sea
 
 ---
 
-## Connect the quote form
+## The quote form
 
-The form posts to whatever URL is in this one line of `index.html`:
+**Connected.** Submissions go to Formspree, which emails them to the address on that
+Formspree account. The destination is this one line of `index.html`:
 
 ```html
 <form class="quote-form" id="quoteForm" method="POST"
-      action="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+      action="https://formspree.io/f/mjgnppop"
 ```
 
-Any service that accepts a normal form POST will work. The quickest option:
+**To change who receives quote requests**, log in at [formspree.io](https://formspree.io)
+and change the notification email on the form — do *not* edit the website. The site
+does not need to be touched or redeployed for that.
 
-1. Create a free account at [formspree.io](https://formspree.io).
-2. Make a new form and point it at the email address that should receive quote requests.
-3. Copy the form's endpoint URL and paste it over the `action` value above.
+Free Formspree allows **50 submissions per month**, which is ample for a local service
+business. Formspree emails the account owner when it is close to the limit.
 
-Nothing else needs to change. Photo uploads, the success message, validation and
-spam filtering all keep working.
+Any service that accepts a normal form POST works here. Photo uploads, the success
+message, validation and spam filtering are independent of the provider.
 
 **Switching provider later** (Netlify Forms, Basin, Getform, your own server) is the
 same single edit. Field names sent with each submission:

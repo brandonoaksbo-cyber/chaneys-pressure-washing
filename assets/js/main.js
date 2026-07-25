@@ -213,7 +213,7 @@
     if (!action || action.indexOf('REPLACE_WITH_FORM_ID') !== -1) {
       formError.textContent =
         'This form is not connected to a destination yet. Please call 850-566-WASH (9274) to request your quote. ' +
-        '(Site owner: see README.md → "Connect the quote form".)';
+        '(Site owner: see README.md → "The quote form".)';
       formError.hidden = false;
       formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
