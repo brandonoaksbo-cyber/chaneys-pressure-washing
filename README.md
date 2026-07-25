@@ -22,16 +22,25 @@ sitemap.xml           list of pages for search engines
 
 Search the project for `REPLACE` to find every one of these.
 
-| # | What | Where |
-|---|------|-------|
-| 1 | ~~Connect the quote form~~ — **done**, posting to Formspree | `index.html` → `<form ... action="…">` — see below |
-| 2 | **Real domain** (5 places) | `index.html` head + structured data, `sitemap.xml`, `robots.txt` |
-| 3 | **Google Reviews link** | `index.html` → "Read Our Google Reviews" button |
-| 4 | **Facebook + Instagram links** | `index.html` → footer |
-| 5 | **3 more before & after pairs** | `assets/img/gallery/` — one real pair is already in |
-| 6 | **Real reviews** | `index.html` → Reviews section |
-| 7 | **Contact email** (optional) | `privacy.html` |
-| 8 | **Turn on search engines** | see "Going live" below — the site is hidden from Google right now |
+| # | What | Where | Status |
+|---|------|-------|--------|
+| 1 | Connect the quote form | `index.html` → `<form ... action="…">` | **done** — Formspree |
+| 2 | Real domain | `index.html` head + structured data, `sitemap.xml`, `robots.txt` | **done** — chaneyspressurewashing.com |
+| 3 | Google Reviews link | `index.html` → Reviews section | **hidden** — no profile yet, button commented out |
+| 4 | Facebook + Instagram links | `index.html` → footer | **hidden** — no accounts yet, icons commented out |
+| 5 | 3 more before & after pairs | `assets/img/gallery/` | waiting — one real pair is in |
+| 6 | Real reviews | `index.html` → Reviews section | waiting — placeholders showing |
+| 7 | Contact email (optional) | `privacy.html` | waiting |
+| 8 | Turn on search engines | see "Going live" below | **deliberately still off** — see #5 and #6 |
+
+Items 3 and 4 are commented out rather than deleted, because a button pointing at a
+placeholder URL is a dead link on a site that is already publicly reachable. Each
+block carries instructions — switching them on is uncommenting and pasting a URL.
+
+**#8 is gated on #5 and #6.** The site is live and shareable right now; it is only
+hidden from Google. Turning search engines on while the gallery says "photo needed"
+and the reviews say "placeholder" gets that content cached against Chaney's name,
+which is the slowest thing here to undo. Finish the photos and reviews first.
 
 If the form is ever disconnected again, it tells visitors to call rather than
 silently failing.
