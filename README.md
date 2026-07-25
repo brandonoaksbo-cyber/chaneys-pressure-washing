@@ -68,8 +68,32 @@ does not need to be touched or redeployed for that.
 Free Formspree allows **50 submissions per month**, which is ample for a local service
 business. Formspree emails the account owner when it is close to the limit.
 
-Any service that accepts a normal form POST works here. Photo uploads, the success
-message, validation and spam filtering are independent of the provider.
+Any service that accepts a normal form POST works here. The success message,
+validation and spam filtering are independent of the provider.
+
+### Photos are asked for by text, not uploaded
+
+The Formspree plan in use **rejects file uploads** — a submission carrying a real
+file fails outright with "File Uploads Not Permitted", which would lose the whole
+lead over an optional field. So the site does this instead:
+
+- the photo picker stays on the form, and its hint says photos will be texted
+- on submit, the files are dropped from the POST so the request always succeeds
+- if photos *were* chosen, the request includes a `photos_note` field flagging how
+  many, and the thank-you screen asks the customer to text them to 850-566-WASH
+
+The lead always arrives either way. Most homeowners find texting a photo easier
+than uploading one anyway.
+
+**If uploads are ever enabled** on the Formspree plan: delete the photo block in
+`assets/js/main.js` (marked with a comment) and the `successPhotoNote` paragraph
+in `index.html`. Nothing else depends on it.
+
+### Cache busting
+
+`index.html` and `privacy.html` load CSS and JS with a `?v=N` suffix. Assets are
+cached hard for speed, so **after editing `styles.css` or `main.js`, bump that
+number** in both files — otherwise returning visitors keep running the old file.
 
 **Switching provider later** (Netlify Forms, Basin, Getform, your own server) is the
 same single edit. Field names sent with each submission:

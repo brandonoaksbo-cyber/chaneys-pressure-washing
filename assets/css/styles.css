@@ -546,6 +546,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .quote-success h2 { font-size: clamp(1.8rem, 5vw, 2.35rem); margin-bottom: .8rem; }
 .quote-success p { margin-bottom: .7rem; }
 .quote-success a { color: var(--electric); font-weight: 600; }
+/* Photo-by-text ask — set apart so it is not skimmed past. */
+.quote-success .success-photos {
+  margin-block: 1.1rem; padding: .9rem 1.1rem;
+  background: rgba(8,123,255,.1); border-left: 3px solid var(--electric);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.quote-success .success-photos strong { color: var(--white); }
 
 /* =========================================================================
    FINAL CTA

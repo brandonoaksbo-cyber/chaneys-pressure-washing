@@ -222,13 +222,34 @@
     submitBtn.classList.add('is-busy');
     submitBtn.textContent = 'Sending…';
 
+    var payload = new FormData(form);
+
+    /* PHOTOS — why they are stripped before sending
+       The current Formspree plan rejects any request carrying a real file
+       ("File Uploads Not Permitted"), which would fail the whole submission
+       and lose the lead over an optional field. So the files are removed and
+       replaced with a note, and the success screen asks for them by text.
+       If uploads are ever enabled on the form's plan, delete this block and
+       the photosAttached branch in showSuccess() — nothing else changes. */
+    var photoInput = form.querySelector('[name="photos"]');
+    var photoCount = photoInput && photoInput.files ? photoInput.files.length : 0;
+
+    payload.delete('photos');
+    if (photoCount) {
+      payload.set(
+        'photos_note',
+        photoCount + ' photo(s) selected on the website but not sent — ' +
+        'the customer has been asked to text them to 850-566-WASH.'
+      );
+    }
+
     fetch(action, {
       method: 'POST',
-      body: new FormData(form),
+      body: payload,
       headers: { Accept: 'application/json' }
     })
       .then(function (res) {
-        if (res.ok) { showSuccess(); return; }
+        if (res.ok) { showSuccess(photoCount); return; }
         return res.json().catch(function () { return null; }).then(function (data) {
           var detail = data && data.errors && data.errors.length ? data.errors[0].message : '';
           throw new Error(detail || 'Request failed');
@@ -245,7 +266,12 @@
       });
   });
 
-  function showSuccess() {
+  function showSuccess(photosAttached) {
+    // Only shown when photos were actually chosen, so nobody is told to text
+    // pictures they never picked.
+    var photoNote = document.getElementById('successPhotoNote');
+    if (photoNote) photoNote.hidden = !photosAttached;
+
     form.hidden = true;
     success.hidden = false;
     success.focus();
