@@ -23,14 +23,15 @@
      ========================================================================= -->
 <meta name="robots" content="noindex, nofollow">
 
-<!-- [REPLACE] Swap REPLACE-WITH-DOMAIN.com for the real domain in the 4 URLs below -->
-<link rel="canonical" href="https://REPLACE-WITH-DOMAIN.com/">
+<!-- Live domain. If it ever changes, update it here, in the structured data at the
+     bottom of this file, in sitemap.xml and in robots.txt. -->
+<link rel="canonical" href="https://chaneyspressurewashing.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Chaney's Pressure Washing &amp; Soft Wash">
 <meta property="og:title" content="Pressure Washing Tallahassee FL | Chaney's Pressure Washing &amp; Soft Wash">
 <meta property="og:description" content="Doing business in Tallahassee and surrounding areas since 2001. Residential &amp; commercial soft washing and pressure washing. Licensed &amp; insured. Free quotes.">
-<meta property="og:url" content="https://REPLACE-WITH-DOMAIN.com/">
-<meta property="og:image" content="https://REPLACE-WITH-DOMAIN.com/assets/img/work/og-share.jpg">
+<meta property="og:url" content="https://chaneyspressurewashing.com/">
+<meta property="og:image" content="https://chaneyspressurewashing.com/assets/img/work/og-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="A Chaney's Pressure Washing service truck outside a historic Tallahassee government building.">
@@ -455,13 +456,18 @@
       waiting on real, published reviews.
     </p>
 
+    <!-- GOOGLE REVIEWS BUTTON — hidden until the profile exists.
+         There is no Google Business Profile yet, and a button pointing at a
+         placeholder URL is a dead link on a live site. To switch it back on:
+         uncomment the block below and put the real reviews URL in href. -->
+    <!--
     <div class="center">
-      <!-- [REPLACE] Point this at the Google Business Profile reviews page -->
-      <a class="btn btn-primary btn-lg" href="https://REPLACE-WITH-GOOGLE-REVIEWS-LINK" target="_blank" rel="noopener">
+      <a class="btn btn-primary btn-lg" href="PUT-GOOGLE-REVIEWS-URL-HERE" target="_blank" rel="noopener">
         Read Our Google Reviews
         <svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-external"/></svg>
       </a>
     </div>
+    -->
   </div>
 </section>
 
@@ -644,13 +650,18 @@
         <li><a class="footer-phone" href="tel:+18505669274">850-566-WASH (9274)</a></li>
         <li><a href="#contact">Request a free quote</a></li>
       </ul>
-      <!-- [REPLACE] Add the real Facebook and Instagram URLs -->
+      <!-- SOCIAL LINKS — hidden until the accounts exist, so the footer does not
+           carry dead links. To switch them back on: uncomment the block below and
+           replace each href with the real profile URL. Delete either <li> if only
+           one account exists. -->
+      <!--
       <ul class="social">
-        <li><a href="https://REPLACE-WITH-FACEBOOK-URL" target="_blank" rel="noopener" aria-label="Chaney's on Facebook">
+        <li><a href="PUT-FACEBOOK-URL-HERE" target="_blank" rel="noopener" aria-label="Chaney's on Facebook">
           <svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-fb"/></svg></a></li>
-        <li><a href="https://REPLACE-WITH-INSTAGRAM-URL" target="_blank" rel="noopener" aria-label="Chaney's on Instagram">
+        <li><a href="PUT-INSTAGRAM-URL-HERE" target="_blank" rel="noopener" aria-label="Chaney's on Instagram">
           <svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-ig"/></svg></a></li>
       </ul>
+      -->
     </div>
 
     <div class="footer-col">
@@ -704,7 +715,9 @@
 <!-- ============================== STRUCTURED DATA ==============================
      Only verified facts from Chaney's are listed here. No address, hours,
      ratings or certifications have been invented. Add them in README order
-     once confirmed. [REPLACE] the two domain URLs. -->
+     once confirmed. When a Google Business Profile and social accounts exist,
+     add a "sameAs" array here listing those URLs — it helps Google connect
+     this site to the profile. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -712,9 +725,9 @@
   "additionalType": "https://schema.org/HomeAndConstructionBusiness",
   "name": "Chaney's Pressure Washing & Soft Wash",
   "description": "Family-owned pressure washing and soft washing company serving Tallahassee, Florida and surrounding areas since 2001. Residential and commercial exterior cleaning. Licensed and insured.",
-  "url": "https://REPLACE-WITH-DOMAIN.com/",
-  "image": "https://REPLACE-WITH-DOMAIN.com/assets/img/og-image.jpg",
-  "logo": "https://REPLACE-WITH-DOMAIN.com/assets/img/logo-horizontal.png",
+  "url": "https://chaneyspressurewashing.com/",
+  "image": "https://chaneyspressurewashing.com/assets/img/og-image.jpg",
+  "logo": "https://chaneyspressurewashing.com/assets/img/logo-horizontal.png",
   "telephone": "+1-850-566-9274",
   "foundingDate": "2001",
   "slogan": "Doing business in Tallahassee and surrounding areas since 2001",

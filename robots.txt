@@ -11,5 +11,4 @@ Disallow: /
 # User-agent: *
 # Allow: /
 
-# [REPLACE] Swap in the real domain
-Sitemap: https://REPLACE-WITH-DOMAIN.com/sitemap.xml
+Sitemap: https://chaneyspressurewashing.com/sitemap.xml
