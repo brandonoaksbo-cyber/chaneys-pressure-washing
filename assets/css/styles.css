@@ -260,6 +260,24 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero-visual { display: flex; justify-content: center; }
 .hero-emblem { width: min(100%, 420px); filter: drop-shadow(0 22px 50px rgba(0,0,0,.7)); }
 
+/* Hero job photo. Chrome hairline + deep shadow keeps it feeling deliberate
+   against the dark hero rather than pasted on. */
+.hero-shot {
+  position: relative; margin: 0; width: min(100%, 440px);
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid rgba(201,210,220,.35);
+  box-shadow: 0 26px 60px rgba(0,0,0,.6);
+}
+.hero-shot img { display: block; width: 100%; height: auto; }
+.hero-shot-cap {
+  position: absolute; inset: auto 0 0 0;
+  display: flex; align-items: center; gap: .5rem;
+  padding: 1.6rem .95rem .8rem;
+  font-size: .84rem; font-weight: 600; color: var(--white);
+  background: linear-gradient(to top, rgba(8,10,13,.92), rgba(8,10,13,0));
+}
+.hero-shot-cap .ico { width: 1rem; height: 1rem; color: var(--electric); flex: none; }
+
 .wave { display: block; width: 100%; height: clamp(40px, 6vw, 76px); margin-top: -1px; fill: var(--white); position: relative; z-index: 1; }
 
 /* =========================================================================
@@ -334,6 +352,52 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .ba-type {
   font-family: var(--font-head); font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
   color: var(--deep); border: 1px solid currentColor; border-radius: 5px; padding: .1rem .45rem;
+}
+
+/* =========================================================================
+   RECENT WORK — single job photos, square tiles so mixed camera
+   orientations still line up on a grid
+   ========================================================================= */
+.recent { margin-top: 3.25rem; padding-top: 2.75rem; border-top: 1px solid #C4D8EE; }
+.recent-head {
+  font-family: var(--font-head); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(1.4rem, 4.5vw, 1.9rem); letter-spacing: .01em; color: var(--ink);
+}
+.recent-intro { margin-top: .7rem; max-width: 62ch; color: var(--ink-mid); font-size: 1rem; }
+
+.recent-grid {
+  list-style: none; margin: 1.9rem 0 0; padding: 0;
+  display: grid; gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.recent-item figure {
+  margin: 0; height: 100%; background: var(--white);
+  border: 1px solid #C4D8EE; border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.recent-item img {
+  display: block; width: 100%; aspect-ratio: 1 / 1;
+  object-fit: cover; background: var(--jet);
+}
+.recent-item figcaption {
+  display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+  padding: .85rem .95rem; font-size: .93rem; font-weight: 600; color: var(--ink);
+}
+.recent-type {
+  font-family: var(--font-head); font-size: .75rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--deep);
+  border: 1px solid currentColor; border-radius: 5px; padding: .1rem .4rem;
+}
+
+/* Residential photo closing the Why Chaney's section */
+.why-shot {
+  margin: 2.75rem 0 0; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid rgba(201,210,220,.28); box-shadow: 0 20px 46px rgba(0,0,0,.5);
+}
+.why-shot img { display: block; width: 100%; height: auto; }
+.why-shot figcaption {
+  padding: .85rem 1.1rem; font-size: .9rem; color: var(--chrome);
+  background: rgba(255,255,255,.05);
 }
 
 /* placeholder / disclosure note */

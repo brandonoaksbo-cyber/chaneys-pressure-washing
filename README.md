@@ -9,8 +9,9 @@ privacy.html          privacy policy
 assets/css/styles.css all styling (brand colours defined at the top)
 assets/js/main.js     menu, form validation, form submission
 assets/fonts/         Barlow Condensed + Inter, self-hosted (63 KB total)
-assets/img/           logos, icons, social share image
-assets/img/gallery/   before & after photos
+assets/img/           logos, icons
+assets/img/work/      real job photos (hero, gallery, recent work, share image)
+assets/img/gallery/   before & after placeholders still awaiting photos
 robots.txt            search engine instructions
 sitemap.xml           list of pages for search engines
 ```
@@ -27,7 +28,7 @@ Search the project for `REPLACE` to find every one of these.
 | 2 | **Real domain** (5 places) | `index.html` head + structured data, `sitemap.xml`, `robots.txt` |
 | 3 | **Google Reviews link** | `index.html` → "Read Our Google Reviews" button |
 | 4 | **Facebook + Instagram links** | `index.html` → footer |
-| 5 | **Before & after photos** | `assets/img/gallery/` — see below |
+| 5 | **3 more before & after pairs** | `assets/img/gallery/` — one real pair is already in |
 | 6 | **Real reviews** | `index.html` → Reviews section |
 | 7 | **Contact email** (optional) | `privacy.html` |
 | 8 | **Turn on search engines** | see "Going live" below — the site is hidden from Google right now |
@@ -80,14 +81,19 @@ same single edit. Field names sent with each submission:
 
 ## Add or replace before & after photos
 
-Each tile shows two files from `assets/img/gallery/`:
+Tile 1 is a **real project** — a commercial flat roof, before and after. Its photos live
+in `assets/img/work/` (`roof-before.*`, `roof-after.*`).
+
+Tiles 2–4 are still placeholders, reading from `assets/img/gallery/`:
 
 ```
-project-1-before.jpg   project-1-after.jpg     Residential — house soft washing
 project-2-before.jpg   project-2-after.jpg     Residential — driveway & sidewalk
 project-3-before.jpg   project-3-after.jpg     Commercial — storefront exterior
 project-4-before.jpg   project-4-after.jpg     Commercial — concrete & pavement
 ```
+
+The best thing you can add here is a **matched pair**: the same wall, same angle, one
+dirty and one clean. Those three tiles are waiting for exactly that.
 
 **To swap a photo:** save your picture over the matching file, keeping the exact same
 filename. That's it — no code to edit.
@@ -100,9 +106,9 @@ around 1200 x 900 pixels so pages stay fast.
 **To add a fifth project**, copy a whole `<figure class="ba-card">…</figure>` block in
 `index.html`, change the four filenames to `project-5-…`, and drop the new photos in.
 
-> The eight files currently there are grey "PHOTO NEEDED" placeholders, and the page
-> says so in print underneath the gallery. Delete that note once real photos are in:
-> search `index.html` for `Placeholder images`.
+> Six of the files there are still grey "PHOTO NEEDED" placeholders, and the page says
+> so in print underneath the gallery. Delete that note once real photos are in: search
+> `index.html` for `Three tiles still need photos`.
 
 ---
 
@@ -150,24 +156,42 @@ number means new logo artwork from your designer.
 
 ---
 
-## Add a hero photo
+## Real job photos (`assets/img/work/`)
 
-The hero currently shows the brand emblem, because no project photography was supplied.
-To use a real photo (a strong before/after property shot, or the crew on a job):
+These are Chaney's own photos, processed for the web. Every file exists twice — a
+`.webp` (what nearly every browser gets) and a `.jpg` (fallback). **Replace both, or
+the old WebP keeps showing.**
 
-1. Save it as `assets/img/hero.jpg` — landscape, around 1600 x 1200.
-2. In `index.html`, replace the `<img class="hero-emblem" …>` tag with:
+| File | Where it appears | Shape |
+|---|---|---|
+| `hero-action.*` | Hero, right side | 4:5 portrait |
+| `roof-before.*` / `roof-after.*` | Before & after gallery, tile 1 | 4:3 landscape |
+| `residential-home.*` | Bottom of "Why Chaney's" | 3:2 landscape |
+| `landmark-capitol.*` | Recent work grid | 1:1 square |
+| `commercial-office.*` | Recent work grid | 1:1 square |
+| `storefront.*` | Recent work grid | 1:1 square |
+| `historic-residence.*` | Recent work grid | 1:1 square |
+| `stadium-structure.*` | Recent work grid | 1:1 square |
+| `stadium-seating.*` | Recent work grid | 1:1 square |
+| `og-share.*` | Facebook/text-message preview | 1200 x 630 |
 
-```html
-<img class="hero-emblem" src="assets/img/hero.jpg"
-     alt="Chaney's crew soft washing a Tallahassee home"
-     width="1600" height="1200" fetchpriority="high">
-```
+**Adding a photo to the recent-work grid:** copy one `<li class="recent-item">…</li>`
+block in `index.html`, point it at your new file, and write an `alt` line describing
+what is actually in the shot. Square (1:1) images keep the grid tidy.
 
-3. In `assets/css/styles.css`, find `.hero-emblem` and swap the drop-shadow line for
-   `border-radius: 14px; box-shadow: 0 22px 50px rgba(0,0,0,.7);`
+### Two things worth knowing about phone photos
 
-Write an `alt` description of what is actually in the photo.
+**iPhone photos carry a rotation tag.** The pixels are stored one way and a separate
+tag says "turn this 90°/180° when displaying." Some tools ignore the tag, which is how
+a photo ends up sideways or upside down on a website while looking fine on the phone.
+Four of the ten photos here were affected. If you add photos and one looks wrong,
+that's why — open it and re-save it, or say so and it can be fixed.
+
+**Captions don't name any client.** Descriptions say what was cleaned ("historic
+government building", "storefront & walkway"), never who owns it. Commercial contracts
+sometimes restrict using a client's name in advertising, and this avoids the question.
+Note that a couple of photos have business signage visible in the frame — the caption
+stays neutral, but the sign is legible. If any client would object, swap that photo.
 
 ---
 
