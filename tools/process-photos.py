@@ -31,7 +31,7 @@ JOBS = [
     ("IMG_3210", "residential-home", 1400, 3 / 2, 0.50),
 
     # Recent-work grid
-    ("IMG_0952", "landmark-capitol", 900, SQ, 0.40),
+    ("IMG_0952", "state-capitol", 900, SQ, 0.40),
     ("IMG_0464", "commercial-office", 900, SQ, 0.45),
     ("IMG_1415", "historic-residence", 900, SQ, 0.40),
     ("IMG_3251", "storefront", 900, SQ, 0.35),

@@ -203,7 +203,7 @@ the old WebP keeps showing.**
 | `hero-action.*` | Hero, right side | 4:5 portrait |
 | `roof-before.*` / `roof-after.*` | Before & after gallery, tile 1 | 4:3 landscape |
 | `residential-home.*` | Bottom of "Why Chaney's" | 3:2 landscape |
-| `landmark-capitol.*` | Recent work grid | 1:1 square |
+| `state-capitol.*` | Recent work grid | 1:1 square |
 | `commercial-office.*` | Recent work grid | 1:1 square |
 | `storefront.*` | Recent work grid | 1:1 square |
 | `historic-residence.*` | Recent work grid | 1:1 square |
@@ -214,6 +214,22 @@ the old WebP keeps showing.**
 **Adding a photo to the recent-work grid:** copy one `<li class="recent-item">…</li>`
 block in `index.html`, point it at your new file, and write an `alt` line describing
 what is actually in the shot. Square (1:1) images keep the grid tidy.
+
+**Processing a batch of new phone photos:** `tools/process-photos.py` takes HEIC
+files from `~/Downloads`, corrects rotation, crops each to the right shape, and
+writes matching `.jpg`/`.webp` pairs into `assets/img/work/`. Add a row to the
+`JOBS` list at the top of the script (source filename, output slug, width, crop
+aspect, vertical bias) and run it:
+
+```bash
+python3 tools/process-photos.py
+```
+
+**Never reuse an existing slug for different content.** `vercel.json` caches
+everything in `assets/img/` as `immutable` for a year — browsers are told to
+never even check whether the file changed. Give new content a new filename and
+update the reference in `index.html`; don't overwrite an old one, or some
+visitors keep seeing the old photo regardless of redeploys.
 
 ### Two things worth knowing about phone photos
 
