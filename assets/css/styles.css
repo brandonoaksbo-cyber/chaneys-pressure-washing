@@ -330,6 +330,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Before & After ---------- */
 .gallery { display: grid; gap: 1.35rem; }
+/* While only one project is live, don't leave a dead column beside it.
+   Self-correcting: uncomment another tile in index.html and the grid goes
+   back to two columns on its own, with no CSS change needed. */
+.gallery:has(> .ba-card:only-child) {
+  grid-template-columns: minmax(0, 46rem);
+  justify-content: center;
+}
 .ba-card {
   margin: 0; background: var(--white); border: 1px solid #C4D8EE;
   border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
