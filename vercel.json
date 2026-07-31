@@ -3,10 +3,14 @@
   "cleanUrls": true,
   "trailingSlash": false,
 
-  "//": "SHORT LINK for asking a customer for a review face to face or by text: chaneyspressurewashing.com/review. /reviews is here because people say it both ways. Deliberately NOT permanent — a 301 is cached in the customer's browser forever, so if the Google listing is ever recreated and the place ID changes, anyone who used the old link keeps landing on the wrong business with no way to clear it. A 307 costs nothing and stays fixable.",
   "redirects": [
     {
-      "source": "/review(s)?",
+      "source": "/review",
+      "destination": "https://search.google.com/local/writereview?placeid=ChIJ03ljkkPl7IgRjE0BMG9oFt4",
+      "permanent": false
+    },
+    {
+      "source": "/reviews",
       "destination": "https://search.google.com/local/writereview?placeid=ChIJ03ljkkPl7IgRjE0BMG9oFt4",
       "permanent": false
     }

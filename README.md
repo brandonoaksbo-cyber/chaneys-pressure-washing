@@ -167,7 +167,7 @@ driveway. `/reviews` works too, because people say it both ways. Either one jump
 straight to the Google review form.
 
 It is a redirect in `vercel.json`, not a page. Nothing to maintain, and it is
-deliberately a **temporary** redirect: a permanent one gets cached in the customer's
+deliberately a **temporary** redirect (`"permanent": false`): a permanent one gets cached in the customer's
 browser forever, so if the Google listing were ever recreated with a new ID, anyone
 who had used the old link would keep landing on the wrong business with no way to
 clear it.
@@ -321,6 +321,24 @@ Headlines use Barlow Condensed ExtraBold, body copy uses Inter — both served f
 Deep Blue is used for button fills rather than Electric Blue: white text on Electric
 Blue is too low-contrast to meet accessibility standards at button size. Electric Blue
 carries the accents, borders, icons and headline highlights instead.
+
+---
+
+## Editing `vercel.json`
+
+**It cannot hold comments.** Vercel validates the file against a published schema
+with `additionalProperties: false`, so any extra key — including a `"//"` used as a
+comment — fails the build outright, and the site keeps serving the previous
+deployment. Explain things here in the README instead.
+
+Check a change before pushing:
+
+```bash
+curl -sS https://openapi.vercel.sh/vercel.json -o /tmp/vercel-schema.json && python3 -c "import json,jsonschema;jsonschema.Draft7Validator(json.load(open('/tmp/vercel-schema.json'))).validate(json.load(open('vercel.json')));print('valid')"
+```
+
+A failed deploy shows up as a red check on the commit in GitHub, not as a broken
+site — which is safe, but easy to miss if nobody looks.
 
 ---
 
