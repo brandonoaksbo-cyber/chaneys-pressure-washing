@@ -1,0 +1,14 @@
+# Files kept in the repo but NOT uploaded to the live site.
+
+# The instant-estimate prototype. Every price in it is invented placeholder data
+# awaiting Ty's real numbers, and prototypes/README.md says it is not live — but
+# until this file existed it WAS live, reachable at /prototypes/instant-estimate,
+# on a domain that search engines are now indexing. Made-up prices sitting under
+# Chaney's name is slow and painful to undo.
+#
+# It stays in git so it can still be shown and worked on. Delete this line only
+# once Ty has set every real number and decided he wants public pricing at all.
+prototypes/
+
+# Local photo staging — large originals, already gitignored, no reason to ship.
+tools/
