@@ -26,37 +26,33 @@ Search the project for `REPLACE` to find every one of these.
 |---|------|-------|--------|
 | 1 | Connect the quote form | `index.html` → `<form ... action="…">` | **done** — Formspree |
 | 2 | Real domain | `index.html` head + structured data, `sitemap.xml`, `robots.txt` | **done** — chaneyspressurewashing.com |
-| 3 | Google Reviews link | `index.html` → Reviews section | **hidden** — no profile yet, button commented out |
-| 4 | Facebook + Instagram links | `index.html` → footer | **hidden** — no accounts yet, icons commented out |
-| 5 | 3 more before & after pairs | `assets/img/gallery/` | waiting — one real pair is in |
-| 6 | Real reviews | `index.html` → Reviews section | waiting — placeholders showing |
-| 7 | Contact email (optional) | `privacy.html` | waiting |
-| 8 | Turn on search engines | see "Going live" below | **deliberately still off** — see #5 and #6 |
+| 3 | Google review link | `index.html` → `#leave-review` + footer, `vercel.json` → `/review` | **done** — short link is chaneyspressurewashing.com/review |
+| 4 | Facebook link | `index.html` → footer + structured data `sameAs` | **done** |
+| 4b | Instagram link | `index.html` → footer | **hidden** — no account yet, icon commented out |
+| 5 | 3 more before & after pairs | `assets/img/gallery/` | waiting — one real pair is in, other 3 tiles commented out |
+| 6 | Real reviews on the page | `index.html` → Reviews section | waiting — section removed until real ones exist |
+| 7 | Contact email | `privacy.html` + structured data | **done** |
+| 8 | Turn on search engines | — | **done** — indexing on since 2026-07-29 |
 
-Items 3 and 4 are commented out rather than deleted, because a button pointing at a
-placeholder URL is a dead link on a site that is already publicly reachable. Each
-block carries instructions — switching them on is uncommenting and pasting a URL.
-
-**#8 is gated on #5 and #6.** The site is live and shareable right now; it is only
-hidden from Google. Turning search engines on while the gallery says "photo needed"
-and the reviews say "placeholder" gets that content cached against Chaney's name,
-which is the slowest thing here to undo. Finish the photos and reviews first.
+Instagram stays commented out rather than deleted, because a button pointing at a
+placeholder URL is a dead link on a site that is publicly reachable. The block
+carries instructions — switching it on is uncommenting and pasting a URL.
 
 If the form is ever disconnected again, it tells visitors to call rather than
 silently failing.
 
-### Going live: unblock search engines
+### If placeholder content ever goes back up
 
-The site is currently set to **noindex** on purpose, so Google doesn't index the
-"photo needed" placeholders and the unconnected form against Chaney's name — that is
-slow and painful to undo once it happens. When the checklist above is finished:
+Search engines are **on**. Before restoring anything with placeholder text or
+"photo needed" artwork, hide the site from Google *first*, or that content gets
+cached against Chaney's name — which is the slowest thing here to undo:
 
-1. `index.html` — delete the `<meta name="robots" content="noindex, nofollow">` line
-   (and the comment block above it)
-2. `privacy.html` — change its robots tag to `index, follow`
-3. `robots.txt` — delete the `Disallow: /` block and uncomment the `Allow: /` block
+1. `index.html` — add a robots meta tag set to `noindex, nofollow`
+2. `privacy.html` — change its robots tag to match
+3. `robots.txt` — replace the `Allow: /` block with `Disallow: /`
 
-Then submit the sitemap in [Google Search Console](https://search.google.com/search-console).
+Reverse all three once the real content is in, then re-submit the sitemap in
+[Google Search Console](https://search.google.com/search-console).
 
 ---
 
@@ -145,6 +141,69 @@ around 1200 x 900 pixels so pages stay fast.
 > Six of the files there are still grey "PHOTO NEEDED" placeholders, and the page says
 > so in print underneath the gallery. Delete that note once real photos are in: search
 > `index.html` for `Three tiles still need photos`.
+
+---
+
+## The "Leave a review" section
+
+`index.html` → `#leave-review`. The words LEAVE A REVIEW start covered in grime and
+a pressure washer sweeps across and cleans them. It runs once, when the section
+scrolls into view.
+
+**How it works**, in case it ever needs changing: the same word is drawn twice, one
+dirty copy and one clean copy sitting exactly on top of it. A mask slides left to
+right revealing the clean one, and the wand rides the same keyframes so the nozzle
+stays on the wet edge. All of it is in `styles.css` under "LEAVE A REVIEW" and eight
+lines at the bottom of `main.js`.
+
+The resting state is the **clean, finished** one. With JavaScript off the visitor
+just reads the words normally — `main.js` is what dirties it and runs the wash.
+Anyone who has asked their system for reduced motion gets the clean state too.
+
+### The short link — chaneyspressurewashing.com/review
+
+For asking in person or by text, while the customer is still standing on the clean
+driveway. `/reviews` works too, because people say it both ways. Either one jumps
+straight to the Google review form.
+
+It is a redirect in `vercel.json`, not a page. Nothing to maintain, and it is
+deliberately a **temporary** redirect: a permanent one gets cached in the customer's
+browser forever, so if the Google listing were ever recreated with a new ID, anyone
+who had used the old link would keep landing on the wrong business with no way to
+clear it.
+
+Worth Ty having that link saved in his phone — the best moment to ask is the moment
+the job is finished.
+
+> **If the site ever moves off Vercel**, this redirect is the one thing here that
+> does not come with it — `vercel.json` is Vercel's file. The buttons on the page
+> keep working anywhere, because they link to Google directly. Re-create `/review`
+> on the new host.
+
+### Changing where it points
+
+The Google *write-a-review* link appears in **three** places, and all three must
+match:
+
+```
+https://search.google.com/local/writereview?placeid=ChIJ03ljkkPl7IgRjE0BMG9oFt4
+```
+
+1. `index.html` → the `a.wash-card` in the `#leave-review` section
+2. `index.html` → the footer "Leave a Google review" link
+3. `vercel.json` → the `/review` redirect
+
+The `placeid` is what ties it to Chaney's Google listing. **If that listing is ever
+deleted and recreated, the ID changes and all three break** — they will still open
+Google, just not the right business, which is worse than a dead link because nobody
+notices. Re-check it any time the profile is touched.
+
+Don't relabel this "Read our reviews". It drops the customer into a review form, and
+a label that promises something else loses them at exactly the wrong moment.
+
+**No star ratings here, deliberately.** Stars drawn on the page read as a claimed
+rating. Google generates real ones from the Business Profile, and hand-written
+`aggregateRating` markup violates their guidelines.
 
 ---
 
@@ -276,6 +335,28 @@ To preview locally, run this from inside the project folder and open http://loca
 ```bash
 python3 -m http.server 8000
 ```
+
+---
+
+## Who the site says runs the business
+
+Chaney's is **Ty Chaney**, and the copy says so plainly — he owns it and does the
+work, with a hand alongside him when a job calls for it. That is a selling point
+against the franchise operators, so it is stated rather than implied.
+
+Nothing on the page says "crew", "team", "our technicians" or "family-owned". Those
+promise a headcount that isn't there, and a customer notices on the day. If wording
+is ever added here, keep it singular. Ty is named in:
+
+- the meta description and the Facebook/share description (`index.html` head)
+- the "Why Chaney's" intro and its first checklist item
+- the thank-you message after a quote request
+- the final call-to-action and the footer
+- the structured data, as `founder` and `employee`
+
+Two photo `alt` descriptions say what is happening without naming who is in shot,
+because it was never confirmed whether those are Ty. If they are, say so in the alt
+text — it is worth the credit.
 
 ---
 

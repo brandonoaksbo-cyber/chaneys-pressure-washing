@@ -277,4 +277,32 @@
     success.focus();
     success.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  /* ---------------------------------------------------------------------
+     "Leave a review" — wash the word clean when it scrolls into view
+
+     The artwork's resting state in CSS is already CLEAN, so a visitor with
+     no JavaScript, or an old browser without IntersectionObserver, just
+     reads the word normally. Only once we know we can animate do we dirty
+     it (.is-armed) and then run the sweep (.is-washing).
+
+     Washing on entry rather than on load matters: the section sits below
+     the fold, and an animation nobody is looking at is an animation that
+     may as well not exist.
+     --------------------------------------------------------------------- */
+  var washArt = document.querySelector('.wash-art');
+
+  if (washArt && 'IntersectionObserver' in window) {
+    washArt.classList.add('is-armed');
+
+    var washSeen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        washArt.classList.add('is-washing');
+        washSeen.disconnect();   // wash once; a looping billboard gets ignored
+      });
+    }, { threshold: 0.45 });
+
+    washSeen.observe(washArt);
+  }
 })();

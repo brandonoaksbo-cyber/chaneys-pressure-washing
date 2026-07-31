@@ -91,7 +91,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 
 /* Keep jump-link targets clear of the sticky header */
-:where(#top, #services, #gallery, #about, #process, #reviews, #contact) { scroll-margin-top: 88px; }
+:where(#top, #services, #gallery, #about, #process, #reviews, #leave-review, #contact) { scroll-margin-top: 88px; }
 
 .center { text-align: center; }
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -576,6 +576,95 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .final-cta .btn-primary:hover { background: var(--ice); color: var(--jet); border-color: var(--ice); }
 .final-cta .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.65); }
 .final-cta .btn-ghost:hover { background: rgba(255,255,255,.14); border-color: var(--white); }
+
+/* =========================================================================
+   LEAVE A REVIEW  — the pressure-washed headline
+   -------------------------------------------------------------------------
+   Two copies of the same word sit exactly on top of each other. The dirty one
+   is always painted; the clean one shows only through #washMask, whose rect
+   slides left to right. The wand slides on the identical keyframes, so the
+   nozzle stays glued to the wet edge.
+
+   The RESTING state below is the CLEAN, finished one. That is deliberate — if
+   JavaScript never runs, the visitor reads the word normally. main.js adds
+   .is-armed to dirty it and .is-washing to run the sweep.
+   ========================================================================= */
+.wash-head { max-width: 46ch; margin-inline: auto; text-align: center; }
+.wash-head .eyebrow { justify-content: center; }
+
+.wash-card {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(.75rem, 2.5vw, 1.5rem) clamp(.75rem, 2.5vw, 1.75rem) clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--jet-2);
+  background-image: radial-gradient(120% 100% at 50% 0%, rgba(8,123,255,.22), transparent 70%);
+  border: 1px solid var(--jet-3);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.wash-card:hover { border-color: var(--electric); transform: translateY(-2px); box-shadow: 0 22px 50px rgba(8,10,13,.22); }
+.wash-card:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* The type is set on the <svg> itself, not on the <text>. Both copies of the
+   word are <use> clones, and a selector cannot reach inside a use shadow tree
+   — but font properties inherit into it, so they have to come from above. */
+.wash-art {
+  display: block; width: 100%; height: auto;
+  font-family: var(--font-head);
+  font-size: 118px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+.wash-dirty { fill: #39424F; }
+.wash-clean { fill: var(--white); filter: drop-shadow(0 0 16px rgba(8,123,255,.75)); }
+
+.wash-mask-rect, .wash-wand { transform: translateX(1160px); }
+.wash-art.is-armed .wash-mask-rect,
+.wash-art.is-armed .wash-wand { transform: translateX(0); }
+.wash-art.is-washing .wash-mask-rect,
+.wash-art.is-washing .wash-wand {
+  animation: washSweep 2.5s cubic-bezier(.36,.06,.28,1) .15s forwards;
+  will-change: transform;
+}
+@keyframes washSweep { from { transform: translateX(0); } to { transform: translateX(1160px); } }
+
+/* The spray flickers only while the wand is actually travelling. */
+.wash-art.is-washing .wash-spray { animation: washSpit .16s steps(2, end) infinite; }
+@keyframes washSpit { from { opacity: .78; } to { opacity: 1; } }
+
+.wash-btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  margin-top: .5rem; padding: 1.05rem 1.75rem;
+  font-family: var(--font-head); font-size: 1.25rem; text-transform: uppercase;
+  letter-spacing: .03em; line-height: 1;
+  color: var(--white); background: var(--deep);
+  border: 2px solid var(--deep); border-radius: 999px;
+  transition: background .2s ease, border-color .2s ease;
+}
+.wash-card:hover .wash-btn { background: var(--electric); border-color: var(--electric); }
+
+.wash-note { margin-top: 1rem; text-align: center; font-size: .9rem; color: var(--ink-mid); }
+
+/* On a phone the word is only ~330px wide, so give it more of the frame. */
+@media (max-width: 600px) {
+  .wash-art { font-size: 128px; }
+  .wash-btn { font-size: 1.05rem; padding: .9rem 1.25rem; }
+}
+
+/* Reduced motion: no sweep at all. The global rule already collapses the
+   duration, and because the animation fills forwards that lands on the clean
+   end state — but state it outright rather than leaning on a side effect. */
+@media (prefers-reduced-motion: reduce) {
+  .wash-art.is-armed .wash-mask-rect,
+  .wash-art.is-armed .wash-wand,
+  .wash-art.is-washing .wash-mask-rect,
+  .wash-art.is-washing .wash-wand { transform: translateX(1160px); animation: none; }
+  .wash-art.is-washing .wash-spray { animation: none; }
+}
 
 /* =========================================================================
    FOOTER
