@@ -467,6 +467,18 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .phone-link span { color: var(--chrome); }
 .phone-link .ico { color: var(--electric); width: 1.5rem; height: 1.5rem; }
 .phone-link:hover { color: var(--electric); }
+/* Deliberately much quieter than .phone-link above it — the form and the phone
+   are the routes to a booked job; this is the catch-all for everything else. */
+.quote-email { margin-top: 1.1rem; font-size: .95rem; color: var(--chrome); max-width: 40ch; }
+.email-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin-top: .3rem; color: var(--white); text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.35);
+  overflow-wrap: anywhere;   /* the address is long; never let it widen the column */
+}
+.email-link .ico { color: var(--electric); width: 1.05rem; height: 1.05rem; }
+.email-link:hover { color: var(--electric); border-bottom-color: var(--electric); }
+
 .quote-facts { margin-top: 1.4rem; display: grid; gap: .55rem; }
 .quote-facts li {
   position: relative; padding-left: 1.5rem; font-size: .95rem; color: var(--chrome);
@@ -684,6 +696,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .footer-col a:hover { color: var(--electric); text-decoration: underline; }
 .footer-phone { font-family: var(--font-head); font-size: 1.45rem; color: var(--white) !important; letter-spacing: .01em; }
 .footer-phone:hover { color: var(--electric) !important; }
+/* Long enough to blow out the narrow footer column on a phone if left alone. */
+.footer-email { overflow-wrap: anywhere; }
 .social { display: flex; gap: .6rem; margin-top: 1rem; }
 .social a {
   display: grid; place-items: center; width: 42px; height: 42px;
