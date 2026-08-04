@@ -29,7 +29,7 @@ Search the project for `REPLACE` to find every one of these.
 | 3 | Google review link | `index.html` → `#leave-review` + footer, `vercel.json` → `/review` | **done** — short link is chaneyspressurewashing.com/review |
 | 4 | Facebook link | `index.html` → footer + structured data `sameAs` | **done** |
 | 4b | Instagram link | `index.html` → footer | **hidden** — no account yet, icon commented out |
-| 5 | 3 more before & after pairs | `assets/img/gallery/` | waiting — one real pair is in, other 3 tiles commented out |
+| 5 | 2 more before & after pairs | `assets/img/gallery/` | waiting — 2 of 4 tiles are real (roof, house washing) |
 | 6 | Real reviews on the page | `index.html` → Reviews section | waiting — section removed until real ones exist |
 | 7 | Contact email | `privacy.html` + structured data | **done** |
 | 8 | Turn on search engines | — | **done** — indexing on since 2026-07-29 |
@@ -113,34 +113,41 @@ same single edit. Field names sent with each submission:
 
 ## Add or replace before & after photos
 
-Tile 1 is a **real project** — a commercial flat roof, before and after. Its photos live
-in `assets/img/work/` (`roof-before.*`, `roof-after.*`).
+**The gallery is a four-tile design.** It lays out in two columns, so four fills a
+clean 2x2. A fifth tile would sit alone on its own row — don't add one without
+changing the layout too.
 
-Tiles 2–4 are still placeholders, reading from `assets/img/gallery/`:
+**Two tiles are real and live**, both reading from `assets/img/work/`:
+
+```
+roof-before.*    roof-after.*      Commercial  — flat roof soft washing
+house-before.*   house-after.*     Residential — house washing
+```
+
+**Two slots are left**, commented out in `index.html` and reading from
+`assets/img/gallery/`:
 
 ```
 project-2-before.jpg   project-2-after.jpg     Residential — driveway & sidewalk
 project-3-before.jpg   project-3-after.jpg     Commercial — storefront exterior
-project-4-before.jpg   project-4-after.jpg     Commercial — concrete & pavement
 ```
 
-The best thing you can add here is a **matched pair**: the same wall, same angle, one
-dirty and one clean. Those three tiles are waiting for exactly that.
+Those two finish the gallery balanced two residential to two commercial.
 
-**To swap a photo:** save your picture over the matching file, keeping the exact same
-filename. That's it — no code to edit.
+**To fill a slot:** save the two photos over the matching filenames above, then
+un-comment that one `<figure class="ba-card">` block in `index.html`. Nothing else
+changes, and the two slots are independent — do them in either order, as pairs arrive.
 
-Tips: shoot before and after from the same spot, use a 4:3 landscape shape, and save
-around 1200 x 900 pixels so pages stay fast.
+The best thing you can add is a **matched pair**: same spot, same angle, one dirty and
+one clean. Shoot 4:3 landscape, around 1200 x 900, so pages stay fast.
 
 **To change a caption**, edit its `<figcaption>` in `index.html`.
 
-**To add a fifth project**, copy a whole `<figure class="ba-card">…</figure>` block in
-`index.html`, change the four filenames to `project-5-…`, and drop the new photos in.
-
-> Six of the files there are still grey "PHOTO NEEDED" placeholders, and the page says
-> so in print underneath the gallery. Delete that note once real photos are in: search
-> `index.html` for `Three tiles still need photos`.
+> `assets/img/gallery/` also still holds `project-1-*` and `project-4-*`. Nothing
+> references them: `project-1` was superseded when the roof pair moved to
+> `assets/img/work/`, and the `project-4` concrete & pavement tile was dropped on
+> 2026-08-04 when the house pair came in — four tiles was the design, and concrete
+> overlapped the driveway slot. Safe to delete both sets.
 
 ---
 
