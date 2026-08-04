@@ -383,9 +383,14 @@ text — it is worth the credit.
 These were left out because the information hasn't been confirmed. Adding anything
 invented here would risk both customer trust and Google penalties.
 
-- **No street address** — only "Tallahassee, FL and surrounding areas". Add a real
-  address to the `PostalAddress` block in `index.html`'s structured data once confirmed.
-- **No opening hours** — add an `openingHoursSpecification` block when known.
+- **No street address — settled, not pending.** Ty works out of his home; the truck
+  stays there. There is no business premises to publish, so the `PostalAddress` block
+  stays locality-only ("Tallahassee, FL"). Do not add a home address here. The place
+  for the service area is the Google Business Profile, which supports hiding the
+  address and listing a service radius instead — see "Search engines" below.
+- **No opening hours — settled, not pending.** A one-man operation does not keep
+  posted hours. No `openingHoursSpecification` block. Publishing invented hours is
+  worse than none: it creates a promise that gets broken on the first missed call.
 - **No star rating** — Google generates rating stars from your Business Profile, not
   from the page. Never hand-write an `aggregateRating`; it violates Google's guidelines.
 - **No guarantees, certifications or awards** beyond "Licensed & Insured", which was
