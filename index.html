@@ -51,7 +51,7 @@
 <!-- ?v= is a cache buster. Assets are cached hard for speed, so after editing
      styles.css or main.js, bump this number here and in privacy.html — otherwise
      returning visitors keep running the old file. -->
-<link rel="stylesheet" href="assets/css/styles.css?v=6">
+<link rel="stylesheet" href="assets/css/styles.css?v=7">
 </head>
 
 <body>
@@ -468,8 +468,8 @@
      part of why it is believable. NEVER write one.
 
      FIVE cards, not seven. Two of the seven ratings are stars only, with no
-     written text, so there is nothing to quote. The 5.0 and the count of 7 in
-     the summary come straight from Google and cover all of them.
+     written text, so there is nothing to quote. The 5.0 in the summary comes
+     straight from Google and covers all of them, written or not.
 
      Names follow the site convention: first name, last initial. "A C" and
      "ROSE Family Travel" are already how those reviewers appear on Google.
@@ -480,7 +480,7 @@
      already earning them. The stars on this page are presentation only.
 
      TO ADD A REVIEW: copy one li.review block, paste the customer's exact
-     words, and update the count in the summary. Layout is a masonry, so an
+     words, and check the 5.0 still matches Google. Layout is a masonry, so an
      odd number of cards is fine — it will not leave a hole.
      ====================================================================== -->
 <section class="section section-dark" id="reviews">
@@ -501,7 +501,10 @@
         <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
         <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
       </p>
-      <p class="rating-count">7 Google reviews &middot; every one of them five stars</p>
+      <!-- NO REVIEW COUNT HERE, on purpose. A number brags when it is big and
+           apologises when it is small, and it goes stale the day it changes.
+           This line should stay countless however many come in. -->
+      <p class="rating-count">Verified Google reviews from Tallahassee homeowners and businesses</p>
       <a class="btn btn-ghost" href="https://search.google.com/local/reviews?placeid=ChIJ03ljkkPl7IgRjE0BMG9oFt4" target="_blank" rel="noopener">
         Read them on Google
         <svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-external"/></svg>
@@ -959,6 +962,6 @@
 }
 </script>
 
-<script src="assets/js/main.js?v=6" defer></script>
+<script src="assets/js/main.js?v=7" defer></script>
 </body>
 </html>

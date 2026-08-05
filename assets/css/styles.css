@@ -216,18 +216,39 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    HERO
    ========================================================================= */
 .hero { position: relative; background: var(--jet); color: var(--white); overflow: hidden; }
+/* The hero's only motion lives on these two decorative layers, and it is
+   deliberately slow enough that you notice the hero feels alive without ever
+   catching it moving. Nothing here touches the h1 or the photo: the photo is
+   the LCP element on a page that will be taking paid traffic, so it is left
+   strictly alone. Both layers are already scaled up a touch, so drifting them
+   can never pull an edge into frame. */
 .hero-bg {
   position: absolute; inset: 0;
   background:
     radial-gradient(60% 70% at 78% 34%, rgba(8,123,255,.30), transparent 70%),
     radial-gradient(50% 60% at 6% 92%, rgba(0,71,184,.26), transparent 72%);
+  transform: scale(1.08);
+  animation: heroDrift 26s ease-in-out infinite;
+  will-change: transform;
 }
 /* faint water arc, drawn not photographed */
 .hero-bg::after {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: -6%;
   background-image:
     radial-gradient(circle at 50% 140%, transparent 58%, rgba(201,210,220,.07) 58.4%, transparent 59.4%),
     radial-gradient(circle at 50% 150%, transparent 62%, rgba(8,123,255,.10) 62.4%, transparent 63.6%);
+  animation: heroArc 34s ease-in-out infinite;
+  will-change: transform;
+}
+/* Offset periods (26s vs 34s) so the two never fall into step and start
+   reading as one repeating loop. */
+@keyframes heroDrift {
+  0%, 100% { transform: scale(1.08) translate3d(0, 0, 0); }
+  50%      { transform: scale(1.13) translate3d(-1.6%, 1.2%, 0); }
+}
+@keyframes heroArc {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(1.4%, -1%, 0) rotate(1.1deg); }
 }
 .hero-inner {
   position: relative; z-index: 1;
@@ -240,7 +261,46 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   margin-bottom: 1.1rem;
   text-shadow: 0 2px 24px rgba(0,0,0,.5);
 }
+/* A glint travels across the two headline words every few seconds — light
+   catching a wet surface, not a wash. Deliberately NOT the nozzle sweep from
+   #leave-review: that gag is the payoff down the page, and spending it up here
+   would make the review CTA read as a rerun.
+
+   Guarded by @supports because background-clip:text needs a transparent fill,
+   and a browser without it would render the headline invisible. Plain electric
+   blue is the fallback and the resting state. */
 .hero h1 .hl { color: var(--electric); }
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero h1 .hl {
+    background-image: linear-gradient(100deg,
+      var(--electric) 0%, var(--electric) 42%,
+      #A8D3FF 50%,
+      var(--electric) 58%, var(--electric) 100%);
+    background-size: 300% 100%;
+    background-position: 100% 0;
+    /* MUST be repeat, not no-repeat. The gradient is clipped to the glyphs, so
+       any letter left uncovered by the background box paints nothing at all and
+       vanishes. With no-repeat, background-position values outside 0-100% slide
+       the box off the word and eat the first letters — "Pressure" rendered as
+       "re". Repeat guarantees cover at every position, and the gradient starts
+       and ends on the same colour so the tile seam is invisible. */
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: hlGlint 8s ease-in-out 1.4s infinite;
+  }
+}
+/* Sweeps across in the first third, then rests. A glint that never stops is a
+   distraction sitting on top of the most important sentence on the site.
+   Both ends of the keyframe sit on solid electric blue, so the loop restarts
+   with nothing to see. */
+@keyframes hlGlint {
+  0%        { background-position: 100% 0; }
+  34%, 100% { background-position: 0% 0; }
+}
 .hero-lead {
   font-size: clamp(1.06rem, 3.2vw, 1.28rem); font-weight: 600;
   color: var(--white); margin-bottom: .4rem;
@@ -726,6 +786,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    duration, and because the animation fills forwards that lands on the clean
    end state — but state it outright rather than leaning on a side effect. */
 @media (prefers-reduced-motion: reduce) {
+  /* Hero goes completely still. The global rule collapses the duration, but an
+     infinite animation is exactly the case where that is not enough — say it. */
+  .hero-bg, .hero-bg::after { animation: none; }
+  .hero h1 .hl {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: var(--electric);
+    color: var(--electric);
+  }
+
   /* Stars stay lit and still. The global rule already collapses the duration,
      but say it outright rather than leaning on a side effect. */
   .rating-summary.is-dim .stars-lg .star,
