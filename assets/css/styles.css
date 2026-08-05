@@ -273,33 +273,39 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .hero h1 .hl {
-    background-image: linear-gradient(100deg,
-      var(--electric) 0%, var(--electric) 42%,
-      #A8D3FF 50%,
-      var(--electric) 58%, var(--electric) 100%);
-    background-size: 300% 100%;
-    background-position: 100% 0;
-    /* MUST be repeat, not no-repeat. The gradient is clipped to the glyphs, so
-       any letter left uncovered by the background box paints nothing at all and
-       vanishes. With no-repeat, background-position values outside 0-100% slide
-       the box off the word and eat the first letters — "Pressure" rendered as
-       "re". Repeat guarantees cover at every position, and the gradient starts
-       and ends on the same colour so the tile seam is invisible. */
-    background-repeat: repeat;
+    /* THREE layers, painted back to front. The last one is a SOLID sheet of
+       electric blue covering the whole box, and it is the safety net: because
+       something always covers every glyph, no combination of the moving layers
+       above it can leave a letter unpainted. background-clip:text fails
+       destructively — an uncovered glyph paints nothing and disappears — and an
+       earlier version of this lost the first six letters of "Pressure" that
+       way. The base layer makes that failure mode impossible rather than
+       merely avoided.
+
+       The two bands above it travel in OPPOSITE directions and meet near the
+       middle of the phrase, so the highlight builds to one bright crossing and
+       separates again — light moving over a wet surface, rather than a single
+       flat wipe. */
+    background-image:
+      linear-gradient(100deg, transparent 38%, rgba(255,255,255,.62) 50%, transparent 62%),
+      linear-gradient(78deg,  transparent 34%, rgba(168,211,255,.55) 50%, transparent 66%),
+      linear-gradient(var(--electric), var(--electric));
+    background-size: 300% 100%, 250% 100%, 100% 100%;
+    background-position: 100% 0, 0% 0, 0 0;
+    background-repeat: repeat, repeat, repeat;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: hlGlint 8s ease-in-out 1.4s infinite;
+    animation: hlGlint 9s ease-in-out 1.6s infinite;
   }
 }
-/* Sweeps across in the first third, then rests. A glint that never stops is a
-   distraction sitting on top of the most important sentence on the site.
-   Both ends of the keyframe sit on solid electric blue, so the loop restarts
-   with nothing to see. */
+/* The pass happens in the first 40%, then the phrase rests as solid blue for
+   the rest of the cycle. Something moving permanently on top of the most
+   important sentence on the site is a distraction, not a flourish. */
 @keyframes hlGlint {
-  0%        { background-position: 100% 0; }
-  34%, 100% { background-position: 0% 0; }
+  0%        { background-position: 100% 0, 0% 0, 0 0; }
+  40%, 100% { background-position: 0% 0, 100% 0, 0 0; }
 }
 .hero-lead {
   font-size: clamp(1.06rem, 3.2vw, 1.28rem); font-weight: 600;
