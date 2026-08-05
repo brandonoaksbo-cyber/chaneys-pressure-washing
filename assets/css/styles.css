@@ -438,20 +438,75 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .step h3 { font-size: 1.42rem; margin: .35rem 0 .4rem; }
 .step p { color: var(--ink-mid); font-size: .97rem; }
 
-/* ---------- Reviews ---------- */
-.review-grid { display: grid; gap: 1.1rem; }
+/* ---------- Reviews ----------
+   Cards sit on the dark section, and the count of real reviews is whatever it
+   is — five today. So this is a MASONRY (CSS multi-column), not a grid: an odd
+   number of cards flows naturally instead of stranding one alone on a row, and
+   the wildly different review lengths pack without leaving holes. Adding or
+   removing a review needs no layout change. */
+.rating-summary {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: .5rem; margin-bottom: clamp(2rem, 5vw, 2.75rem);
+}
+.rating-score {
+  font-family: var(--font-head); font-weight: 800; line-height: .9;
+  font-size: clamp(4rem, 13vw, 6.5rem); color: var(--white);
+  text-shadow: 0 0 30px rgba(8,123,255,.5);
+}
+.rating-count { color: var(--chrome); font-size: .98rem; }
+.rating-summary .btn { margin-top: .6rem; }
+
+.stars { display: inline-flex; gap: .18em; }
+.star { width: 1em; height: 1em; fill: var(--electric); flex: none; }
+.stars-lg { font-size: 1.9rem; gap: .12em; }
+
+/* Stars wash in one at a time. Resting state is LIT, so no JavaScript means a
+   fully lit rating rather than a blank row — main.js adds .is-dim to arm it. */
+.stars-lg .star { opacity: 1; transform: none; }
+.rating-summary.is-dim .stars-lg .star { opacity: .18; transform: scale(.72); }
+.rating-summary.is-lit .stars-lg .star {
+  animation: starPop .45s cubic-bezier(.2,1.5,.4,1) forwards;
+}
+.rating-summary.is-lit .stars-lg .star:nth-child(1) { animation-delay: .05s; }
+.rating-summary.is-lit .stars-lg .star:nth-child(2) { animation-delay: .17s; }
+.rating-summary.is-lit .stars-lg .star:nth-child(3) { animation-delay: .29s; }
+.rating-summary.is-lit .stars-lg .star:nth-child(4) { animation-delay: .41s; }
+.rating-summary.is-lit .stars-lg .star:nth-child(5) { animation-delay: .53s; }
+@keyframes starPop {
+  from { opacity: .18; transform: scale(.72); }
+  60%  { opacity: 1; transform: scale(1.18); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.review-masonry { columns: 1; column-gap: 1.1rem; }
 .review {
-  background: var(--white); border: 1px solid #C4D8EE; border-radius: var(--radius);
-  padding: 1.5rem 1.4rem;
+  break-inside: avoid; -webkit-column-break-inside: avoid;
+  margin-bottom: 1.1rem;
+  position: relative; overflow: hidden;
+  background: var(--jet-2); border: 1px solid var(--jet-3);
+  border-radius: var(--radius); padding: 1.5rem 1.4rem;
+  transition: border-color .25s ease, transform .25s ease;
 }
-.review.is-placeholder { border-style: dashed; background: rgba(255,255,255,.55); }
-.quote-mark { width: 1.9rem; height: 1.9rem; fill: var(--electric); opacity: .55; margin-bottom: .6rem; }
-.review-text { font-size: 1.02rem; color: var(--ink-mid); }
+.review:hover { border-color: var(--electric); transform: translateY(-3px); }
+
+/* A sheen crossing the card on hover — light catching a surface that has just
+   been washed. Decorative only, and it never intercepts the pointer. */
+.review::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(220,238,255,.16) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform .7s ease;
+}
+.review:hover::after { transform: translateX(120%); }
+
+.quote-mark { width: 1.9rem; height: 1.9rem; fill: var(--electric); opacity: .65; margin-bottom: .6rem; }
+.review-text { font-size: 1.02rem; color: var(--chrome); }
 .review-meta {
-  margin-top: .9rem; font-family: var(--font-head); font-size: .95rem;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--deep);
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  margin-top: 1rem; font-family: var(--font-head); font-size: .95rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--white);
 }
-#reviews .center { margin-top: 2rem; }
+.review-meta .stars { font-size: .95rem; }
 
 /* =========================================================================
    QUOTE FORM
@@ -671,6 +726,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    duration, and because the animation fills forwards that lands on the clean
    end state — but state it outright rather than leaning on a side effect. */
 @media (prefers-reduced-motion: reduce) {
+  /* Stars stay lit and still. The global rule already collapses the duration,
+     but say it outright rather than leaning on a side effect. */
+  .rating-summary.is-dim .stars-lg .star,
+  .rating-summary.is-lit .stars-lg .star { opacity: 1; transform: none; animation: none; }
+  .review::after { display: none; }
+
   .wash-art.is-armed .wash-mask-rect,
   .wash-art.is-armed .wash-wand,
   .wash-art.is-washing .wash-mask-rect,
@@ -730,14 +791,15 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    ========================================================================= */
 @media (min-width: 560px) {
   .field-row { grid-template-columns: 1fr 1fr; }
-  .card-grid, .review-grid, .steps, .gallery { grid-template-columns: repeat(2, 1fr); }
+  .card-grid, .steps, .gallery { grid-template-columns: repeat(2, 1fr); }
+  .review-masonry { columns: 2; }
   .why-grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 2rem; }
 }
 
 @media (min-width: 780px) {
   .trust-grid { grid-template-columns: repeat(4, 1fr); padding: 1.4rem 1.25rem; }
   .steps { grid-template-columns: repeat(3, 1fr); }
-  .review-grid { grid-template-columns: repeat(3, 1fr); }
+  .review-masonry { columns: 3; }
   .hero-inner { grid-template-columns: 1.1fr .9fr; align-items: center; }
   .hero-emblem { width: min(100%, 460px); }
   .footer-inner { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; }

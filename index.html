@@ -51,7 +51,7 @@
 <!-- ?v= is a cache buster. Assets are cached hard for speed, so after editing
      styles.css or main.js, bump this number here and in privacy.html — otherwise
      returning visitors keep running the old file. -->
-<link rel="stylesheet" href="assets/css/styles.css?v=5">
+<link rel="stylesheet" href="assets/css/styles.css?v=6">
 </head>
 
 <body>
@@ -69,9 +69,7 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#gallery">Before &amp; After</a></li>
         <li><a href="#about">About</a></li>
-        <!-- Reviews link removed 2026-07-29 with the Reviews section. Restore
-             both together, or this scrolls to nothing. -->
-        <!-- <li><a href="#reviews">Reviews</a></li> -->
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-cta">
@@ -463,38 +461,86 @@
 </section>
 
 <!-- ============================== REVIEWS ==============================
-     REMOVED FROM THE LIVE PAGE 2026-07-29.
+     RESTORED 2026-08-04, when 7 real Google reviews came in. Everything here
+     is transcribed verbatim from the Google listing — nobody at Chaney's or
+     working on this site wrote a word of it, and nothing was tidied up. If a
+     review reads a little rough, that is the customer's own voice and it is
+     part of why it is believable. NEVER write one.
 
-     Every card here was a placeholder and the Google Reviews button had no
-     profile to point at, so the whole section said nothing. The site is now
-     indexed by Google, and placeholder text gets cached against Chaney's name,
-     so it is taken out of the source rather than merely hidden.
+     FIVE cards, not seven. Two of the seven ratings are stars only, with no
+     written text, so there is nothing to quote. The 5.0 and the count of 7 in
+     the summary come straight from Google and cover all of them.
 
-     The nav link to this section is commented out too. If you restore this
-     section, restore that link as well or the two will fall out of step.
+     Names follow the site convention: first name, last initial. "A C" and
+     "ROSE Family Travel" are already how those reviewers appear on Google.
 
-     TO BRING IT BACK once there are real, published reviews: paste the block
-     below in place of this comment, duplicate the review list item once per
-     review, and use the customer's own words with their first name and last
-     initial. Never write a review yourself.
+     NO aggregateRating IN THE STRUCTURED DATA, deliberately. Google disallows
+     self-serving review markup on a LocalBusiness and can drop rich results
+     over it. The stars in search come from the Business Profile, which is
+     already earning them. The stars on this page are presentation only.
 
-     For the "Read Our Google Reviews" button, add this inside the wrap div,
-     with the real profile URL in the href:
-       div class="center" containing an a.btn.btn-primary.btn-lg
-       linking to the Google reviews page, target="_blank" rel="noopener"
+     TO ADD A REVIEW: copy one li.review block, paste the customer's exact
+     words, and update the count in the summary. Layout is a masonry, so an
+     odd number of cards is fine — it will not leave a hole.
+     ====================================================================== -->
+<section class="section section-dark" id="reviews">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>Reviews</p>
+      <h2>What Tallahassee says</h2>
+    </header>
 
-     ====================== BLOCK TO RESTORE ======================
-     section.section.section-ice id="reviews"
-       div.wrap
-         header.section-head
-           p.eyebrow  span.eyebrow-rule  then the word Reviews
-           h2  What Tallahassee says
-         ul.review-grid
-           li.review
-             svg.quote-mark using #i-quote
-             p.review-text   the customer's own words
-             p.review-meta   First name, last initial
-     ============================================================== -->
+    <!-- Rating summary. The stars wash in one at a time on scroll; main.js adds
+         .is-lit. Without JavaScript they are simply lit from the start. -->
+    <div class="rating-summary" id="ratingSummary">
+      <p class="rating-score">5.0</p>
+      <p class="stars stars-lg" role="img" aria-label="Rated 5.0 out of 5 stars">
+        <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
+        <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
+        <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
+        <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
+        <svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg>
+      </p>
+      <p class="rating-count">7 Google reviews &middot; every one of them five stars</p>
+      <a class="btn btn-ghost" href="https://search.google.com/local/reviews?placeid=ChIJ03ljkkPl7IgRjE0BMG9oFt4" target="_blank" rel="noopener">
+        Read them on Google
+        <svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-external"/></svg>
+      </a>
+    </div>
+
+    <ul class="review-masonry">
+      <li class="review">
+        <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+        <p class="review-text">Great, great job! These guys got my building looking so clean and fresh and ready for business. The entire property was done just right. I should not have tried to do it myself. I&rsquo;m glad I called Chaney Pressure Washing.</p>
+        <p class="review-meta"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>ROSE Family Travel</p>
+      </li>
+
+      <li class="review">
+        <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+        <p class="review-text">Ty does such a great job! I&rsquo;ve been using him for years! I highly recommend him!</p>
+        <p class="review-meta"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>A C</p>
+      </li>
+
+      <li class="review">
+        <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+        <p class="review-text">Quick response time, came out, cleaned the house and garage. Would definitely use his services again.</p>
+        <p class="review-meta"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>Derek P.</p>
+      </li>
+
+      <li class="review">
+        <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+        <p class="review-text">I called Ty for a very small job. I had him clean a propane tank for me. He came and cleaned the tank, looked new when he left. Great prompt service.</p>
+        <p class="review-meta"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>Larry M.</p>
+      </li>
+
+      <li class="review">
+        <svg class="quote-mark" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-quote"/></svg>
+        <p class="review-text">Honest owner and great business! Highly recommended!</p>
+        <p class="review-meta"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg><svg class="star" aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"/></svg></span>Jeremy F.</p>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <!-- ============================== LEAVE A REVIEW ==============================
      The artwork is a pressure washer sweeping the words LEAVE A REVIEW clean of
@@ -858,6 +904,7 @@
     <g id="i-quote"><path d="M9.6 5.5C6.3 6.9 4 9.9 4 13.4c0 3 1.8 5.1 4.3 5.1 2.2 0 3.9-1.7 3.9-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.9.1-1 .1.5-1.6 2-3 3.8-3.8l-1.9-1.7Zm9 0c-3.3 1.4-5.6 4.4-5.6 7.9 0 3 1.8 5.1 4.3 5.1 2.2 0 3.9-1.7 3.9-3.9 0-2.1-1.5-3.7-3.5-3.7-.4 0-.9.1-1 .1.5-1.6 2-3 3.8-3.8l-1.9-1.7Z"/></g>
     <g id="i-external"><path d="M13 3h8v8h-2.2V6.8l-8.4 8.4-1.6-1.6 8.4-8.4H13V3ZM4 5.8h6.2V8H6.2v9.8H16v-4h2.2V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6.8a1 1 0 0 1 1-1Z"/></g>
     <g id="i-mail"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.9 2L12 12.1 19.1 7H4.9ZM20 8.9l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.9V17h16V8.9Z"/></g>
+    <g id="i-star"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.44l-5.81 3.06 1.11-6.47-4.7-4.58 6.5-.95L12 2.6Z"/></g>
     <g id="i-fb"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.45-4 4.1v2.3H7.6V13h2.7v8h3.2Z"/></g>
     <g id="i-ig"><path d="M12 2.2c-2.7 0-3 0-4.1.06-1 .05-1.75.22-2.37.46a4.8 4.8 0 0 0-1.73 1.13A4.8 4.8 0 0 0 2.67 5.6c-.24.62-.4 1.33-.46 2.37C2.16 9 2.15 9.3 2.15 12s0 3 .06 4.1c.05 1 .22 1.75.46 2.37a4.8 4.8 0 0 0 1.13 1.73c.5.5 1.03.83 1.73 1.13.62.24 1.33.4 2.37.46 1.1.05 1.4.06 4.1.06s3 0 4.1-.06c1-.05 1.75-.22 2.37-.46a5 5 0 0 0 2.86-2.86c.24-.62.4-1.33.46-2.37.05-1.1.06-1.4.06-4.1s0-3-.06-4.1c-.05-1-.22-1.75-.46-2.37a4.8 4.8 0 0 0-1.13-1.73 4.8 4.8 0 0 0-1.73-1.13c-.62-.24-1.33-.4-2.37-.46-1.1-.05-1.4-.06-4.1-.06Zm0 1.8c2.67 0 2.98.01 4.03.06.97.04 1.5.2 1.85.34.47.18.8.4 1.15.74.35.35.56.68.74 1.15.14.35.3.88.34 1.85.05 1.05.06 1.36.06 4.03s-.01 2.98-.06 4.03c-.4.97-.2 1.5-.34 1.85-.18.47-.4.8-.74 1.15-.35.35-.68.56-1.15.74-.35.14-.88.3-1.85.34-1.05.05-1.36.06-4.03.06s-2.98-.01-4.03-.06c-.97-.04-1.5-.2-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.14-.35-.3-.88-.34-1.85C3.96 14.98 3.95 14.67 3.95 12s.01-2.98.06-4.03c.04-.97.2-1.5.34-1.85.18-.47.4-.8.74-1.15.35-.35.68-.56 1.15-.74.35-.14.88-.3 1.85-.34C9.02 4.01 9.33 4 12 4Zm0 3.06a4.94 4.94 0 1 0 0 9.88 4.94 4.94 0 0 0 0-9.88Zm0 8.15a3.21 3.21 0 1 1 0-6.42 3.21 3.21 0 0 1 0 6.42Zm6.3-8.35a1.16 1.16 0 1 1-2.31 0 1.16 1.16 0 0 1 2.31 0Z"/></g>
   </defs>
@@ -912,6 +959,6 @@
 }
 </script>
 
-<script src="assets/js/main.js?v=5" defer></script>
+<script src="assets/js/main.js?v=6" defer></script>
 </body>
 </html>

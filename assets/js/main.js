@@ -290,6 +290,29 @@
      the fold, and an animation nobody is looking at is an animation that
      may as well not exist.
      --------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------
+     Rating stars light up one at a time when the reviews scroll into view.
+
+     Same progressive-enhancement shape as the wash below: the CSS resting
+     state is fully lit, so no JavaScript means a normal five-star rating
+     rather than an empty row. We only dim it once we know we can animate.
+     --------------------------------------------------------------------- */
+  var rating = document.getElementById('ratingSummary');
+
+  if (rating && 'IntersectionObserver' in window) {
+    rating.classList.add('is-dim');
+
+    var ratingSeen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        rating.classList.add('is-lit');
+        ratingSeen.disconnect();
+      });
+    }, { threshold: 0.6 });
+
+    ratingSeen.observe(rating);
+  }
+
   var washArt = document.querySelector('.wash-art');
 
   if (washArt && 'IntersectionObserver' in window) {
